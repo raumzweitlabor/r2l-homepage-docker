@@ -1,6 +1,5 @@
-This is the docker container that is used to serve   
-[rzl-homepage](http://github.com/raumzeitlabor/rzl-homepage). It is
-automatically being build by and published to the official Docker hub 
+This is the docker container that is used to serve [rzl-homepage](http://github.com/raumzeitlabor/rzl-homepage).
+It is automatically being build by and published to the official Docker hub
 (unlisted).
 
 When deploying the service we actually create two containers:
