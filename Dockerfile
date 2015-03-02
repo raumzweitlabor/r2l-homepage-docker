@@ -25,7 +25,7 @@ RUN \
 
 RUN \
     adduser --system --uid 9999 --disabled-password --gecos "" deploy --shell /bin/sh ;\
-    echo "#!/bin/sh\nchown deploy /data || true" > /etc/rc.local && chmod +x /etc/rc.local ;\
+    echo "#!/bin/sh\nchown deploy /data" > /etc/rc.local && chmod +x /etc/rc.local ;\
     mkdir /home/deploy/.ssh
 
 ADD deploy_key.pub /home/deploy/.ssh/authorized_keys
