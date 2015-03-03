@@ -1,11 +1,10 @@
 [Unit]
 Description=RZL Homepage
 After=docker.service
-Required=docker.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/bin/docker pull raumzeitlabor/rzl-homepage-docker:latest
+KillMode=control-group
 ExecStartPre=-/usr/bin/docker run --name=rzl-homepage-data -v /data \
     raumzeitlabor/rzl-homepage-docker echo "data-only container for rzl-homepage"
 ExecStart=/usr/bin/docker run --name=rzl-homepage-web --detach=false --cpu-shares=512 \
@@ -13,6 +12,7 @@ ExecStart=/usr/bin/docker run --name=rzl-homepage-web --detach=false --cpu-share
     --rm=true --env=VIRTUAL_HOST=www.raumzeitlabor.de,raumzeitlabor.de,www.rzl.so,rzl.so \
     --volumes-from=rzl-homepage-data \
     raumzeitlabor/rzl-homepage-docker
+ExecStop=/usr/bin/docker pull raumzeitlabor/rzl-homepage-docker:latest
 
 [Install]
 WantedBy=multi-user.target
