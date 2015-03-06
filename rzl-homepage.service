@@ -11,6 +11,7 @@ ExecStart=/usr/bin/docker run --name=rzl-homepage-web --detach=false --cpu-share
     --memory=256M --mac-address=5a:f0:46:a3:fd:8b --publish=127.0.0.1:8080:80 \
     --rm=true --env=VIRTUAL_HOST=www.raumzeitlabor.de,raumzeitlabor.de,www.rzl.so,rzl.so \
     --volumes-from=rzl-homepage-data \
+    --hostname=rzl-homepage-web \
     raumzeitlabor/rzl-homepage-docker
 ExecStop=/usr/bin/docker pull raumzeitlabor/rzl-homepage-docker:latest
 
