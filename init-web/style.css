@@ -1,0 +1,34 @@
+@font-face {
+font-family: Miso;
+src: url(fonts/miso-regular.otf) format('opentype');
+}
+
+@font-face {
+font-family: Miso;
+font-weight: bold;
+src: url(fonts/miso-bold.otf) format('opentype');
+}
+
+html, body{
+font-family: 'Miso';
+margin: 0px;
+padding: 0px;
+width: 100%;
+height: 100%;
+background-color:#fefefe;
+}
+
+h1 {
+margin-bottom: 0
+}
+
+.infobox{
+margin: auto;
+position: absolute;
+top: 0px;
+bottom: 0px;
+left: 0px;
+right: 0px;
+width: 320px;
+height: 350px;
+}

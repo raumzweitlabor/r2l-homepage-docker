@@ -33,4 +33,7 @@ ADD nginx.conf /etc/nginx/sites-available/default
 
 VOLUME "/data"
 
+ADD init-web /data
+RUN chown -R deploy /data/*
+
 EXPOSE 80
