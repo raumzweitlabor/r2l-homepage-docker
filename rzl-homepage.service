@@ -1,5 +1,6 @@
 [Unit]
 Description=RZL Homepage
+Requires=docker.service
 After=docker.service
 
 [Service]
