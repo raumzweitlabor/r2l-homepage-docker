@@ -27,11 +27,13 @@ RUN \
 VOLUME "/data"
 
 ADD fix-rights.sh /etc/rc.local
+ADD purge-prs.sh /etc/cron.daily/purge-prs
 
 RUN \
     adduser --system --uid 9999 --disabled-password --gecos "" deploy --shell /bin/sh ;\
     chmod +x /etc/rc.local ;\
-    mkdir /home/deploy/.ssh
+    mkdir /home/deploy/.ssh ;\
+    chmod +x /etc/cron.daily/purge-prs
 
 ADD deploy_key.pub /home/deploy/.ssh/authorized_keys
 ADD nginx.conf /etc/nginx/sites-available/default
