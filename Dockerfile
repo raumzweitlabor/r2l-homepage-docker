@@ -18,22 +18,24 @@ RUN \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN \
+    mkdir -p /data/prod /data/preview ;\
     echo "daemon off;" >> /etc/nginx/nginx.conf ;\
     mkdir /etc/service/nginx ;\
     echo "#!/bin/sh\n/usr/sbin/nginx" > /etc/service/nginx/run ;\
     chmod +x /etc/service/nginx/run
 
+VOLUME "/data"
+
+ADD fix-rights.sh /etc/rc.local
+
 RUN \
     adduser --system --uid 9999 --disabled-password --gecos "" deploy --shell /bin/sh ;\
-    echo "#!/bin/sh\nchown deploy /data" > /etc/rc.local && chmod +x /etc/rc.local ;\
+    chmod +x /etc/rc.local ;\
     mkdir /home/deploy/.ssh
 
 ADD deploy_key.pub /home/deploy/.ssh/authorized_keys
 ADD nginx.conf /etc/nginx/sites-available/default
 
-VOLUME "/data"
-
-ADD init-web /data
-RUN chown -R deploy /data/*
+ADD init-web /data/prod
 
 EXPOSE 80
