@@ -1,0 +1,20 @@
+[Unit]
+Description=RZL Homepage
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+KillMode=control-group
+ExecStartPre=-/usr/bin/docker run --name=r2l-homepage-data -v /data \
+    raumzweitlabor/r2l-homepage-docker echo "data-only container for r2l-homepage"
+ExecStart=/usr/bin/docker run --name=r2l-homepage-web --detach=false --cpu-shares=512 \
+    --memory=64M --mac-address=5a:f0:46:a3:fd:8b --publish=127.0.0.1:8080:80 --rm=true \
+    --env=VIRTUAL_HOST=www.raumzweitlabor.de,raumzweitlabor.de,*.preview.raumzweitlabor.de \
+    --volumes-from=r2l-homepage-data --hostname=r2l-homepage-web \
+    --cap-drop=NET_RAW \
+    raumzweitlabor/r2l-homepage-docker
+ExecStop=/usr/bin/docker pull raumzweitlabor/r2l-homepage-docker:latest
+
+[Install]
+WantedBy=multi-user.target
